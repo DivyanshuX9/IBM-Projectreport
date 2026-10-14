@@ -1,0 +1,17 @@
+import os
+import docx
+
+doc = docx.Document('Assigment2 - Divyanshu Sharma.docx')
+img_num = 0
+for i, p in enumerate(doc.paragraphs):
+    has_img = any('graphic' in r._element.xml for r in p.runs)
+    if has_img:
+        img_num += 1
+        if img_num >= 21:
+            above = ""
+            for j in range(i-1, max(-1, i-6), -1):
+                if doc.paragraphs[j].text.strip():
+                    above = doc.paragraphs[j].text.strip()
+                    break
+            print(f"Image {img_num:2d} (P{i:3d}): {above[:80]}")
+
